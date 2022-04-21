@@ -1,16 +1,22 @@
 # flutter_google_ml_kit
 
-A new Flutter project.
+This repository contains the work for Lab3.
 
-## Getting Started
+The application is developed with ***Flutter***.
 
-This project is a starting point for a Flutter application.
+## Screenshots
 
-A few resources to get you started if this is your first Flutter project:
 
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
+## The built Android app
 
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+APK File (141.7 MB) : https://drive.google.com/file/d/1yCBmAGNMoVjyeC0uPUCuOEgVNd9-RZmB/view?usp=sharing
+
+## The code
+
+All of the code for developing the app is available in the directory lib/.
+
+
+## Dependencies
+
+Information about dependencies can be found in the file pubspec.yaml.
+
