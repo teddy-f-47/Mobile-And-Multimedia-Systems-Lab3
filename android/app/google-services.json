@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "124002119278",
+    "project_id": "mblprg-mlkit",
+    "storage_bucket": "mblprg-mlkit.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124002119278:android:76898964d8cf4ae938007f",
+        "android_client_info": {
+          "package_name": "pl.edu.pwr.lab3.i268893.flutter_google_ml_kit"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124002119278-vo542j844vn7uf4r486gqdbd8df9gg5j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYoCEGdEE7j8J15cWh-i5rXgM4J8eMcG4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124002119278-vo542j844vn7uf4r486gqdbd8df9gg5j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
