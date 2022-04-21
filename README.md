@@ -4,6 +4,12 @@ This repository contains the work for Lab3.
 
 The application is developed with ***Flutter***.
 
+## The built Android app
+
+APK File (141.7 MB) : https://drive.google.com/file/d/1yCBmAGNMoVjyeC0uPUCuOEgVNd9-RZmB/view?usp=sharing
+
+The APK file is too large to be uploaded in a commit to Github, hence it is made available via Google Drive.
+
 ## Screenshots
 
 ![Alt text](/dev_screenshot/1_initial_page.jpg?raw=true "Initial State")
@@ -12,12 +18,6 @@ The application is developed with ***Flutter***.
 ![Alt text](/dev_screenshot/4_testb.jpg?raw=true "Test 2")
 ![Alt text](/dev_screenshot/5_testc.jpg?raw=true "Test 3")
 ![Alt text](/dev_screenshot/6_testd.jpg?raw=true "Test 4")
-
-## The built Android app
-
-APK File (141.7 MB) : https://drive.google.com/file/d/1yCBmAGNMoVjyeC0uPUCuOEgVNd9-RZmB/view?usp=sharing
-
-The APK file is too large to be uploaded in a commit to Github, hence it is made available via Google Drive.
 
 ## The code
 
