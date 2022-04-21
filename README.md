@@ -6,7 +6,7 @@ The application is developed with ***Flutter***.
 
 ## Screenshots
 
-![Alt text](/dev_screenshot/1_initial_page.jpg?raw=true "Initial State")
+<img src="/dev_screenshot/1_initial_page.jpg?raw=true" alt="Initial State" width="300"/>
 ![Alt text](/dev_screenshot/2_camera_view.jpg?raw=true "Take Photo with Camera")
 ![Alt text](/dev_screenshot/3_testa.jpg?raw=true "Test 1")
 ![Alt text](/dev_screenshot/4_testb.jpg?raw=true "Test 2")
