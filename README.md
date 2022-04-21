@@ -6,17 +6,12 @@ The application is developed with ***Flutter***.
 
 ## Screenshots
 
-![](/dev_screenshot/1_initial_page.jpg?raw=true | width=250)
-
-![](/dev_screenshot/2_camera_view.jpg?raw=true | width=250)
-
-![](/dev_screenshot/3_testa.jpg?raw=true | width=250)
-
-![](/dev_screenshot/4_testb.jpg?raw=true | width=250)
-
-![](/dev_screenshot/5_testc.jpg?raw=true | width=250)
-
-![](/dev_screenshot/6_testd.jpg?raw=true | width=250)
+![Alt text](/dev_screenshot/1_initial_page.jpg?raw=true "Initial State")
+![Alt text](/dev_screenshot/2_camera_view.jpg?raw=true "Take Photo with Camera")
+![Alt text](/dev_screenshot/3_testa.jpg?raw=true "Test 1")
+![Alt text](/dev_screenshot/4_testb.jpg?raw=true "Test 2")
+![Alt text](/dev_screenshot/5_testc.jpg?raw=true "Test 3")
+![Alt text](/dev_screenshot/6_testd.jpg?raw=true "Test 4")
 
 ## The built Android app
 
