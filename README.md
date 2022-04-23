@@ -25,11 +25,15 @@ All of the code for developing the app is available in the directory lib/.
 
 ### main.dart
 
-This is the 'root' of the app that contains code for the home page, as well as the image processing for image labelling, text recognition, and object detection.
+This is the 'root' of the app that contains code for the home page. Here, there is a button to select an image from Gallery using ImagePicker, and there is another button that navigates to cameraview.dart to take a photo using Camera. Eventually, main.dart calls functions from processing.dart to get the labels, text, and detected object boundaries of a given image.
 
 ### cameraview.dart
 
 This is the code for the 'camera' page where the user can take a picture as an input for the app.
+
+### processing.dart
+
+This is the code for image processing with Google ML Kit. There are three functions for image labelling, text recognition, and object detection.
 
 ### constants.dart
 

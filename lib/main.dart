@@ -4,10 +4,9 @@ import 'package:camera/camera.dart';
 import 'dart:io';
 import 'dart:async';
 import 'cameraview.dart';
+import 'processor.dart';
 import 'constants.dart';
 import 'styling.dart';
-
-import 'package:google_ml_kit/google_ml_kit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -52,17 +51,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  ImageLabeler imageLabeler = GoogleMlKit.vision.imageLabeler();
-  TextDetector textRecognizer = GoogleMlKit.vision.textDetector();
-  ObjectDetector objectDetector = GoogleMlKit.vision.objectDetector(
-      ObjectDetectorOptions(classifyObjects: true, trackMutipleObjects: true));
-
-  List? _detectedObjects;
-  Size? _currentImageAbsSize;
-  bool _isBusy = false;
-  Image _currentImage = Image.asset('assets/placeholder.jpg');
   String _currentTags = Constants.tagTextDefault;
   String _currentDetectedText = Constants.detectedTextDefault;
+  List<Widget> _detectedObjects = [Image.asset('assets/placeholder.jpg')];
 
   @override
   void initState() {
@@ -74,18 +65,20 @@ class _MyHomePageState extends State<MyHomePage> {
         await ImagePicker().getImage(source: ImageSource.gallery);
     if (pickedFile != null) {
       File imageFile = File(pickedFile.path);
-      InputImage visionInput = InputImage.fromFile(imageFile);
+      Size stackChildrenSize = Size(MediaQuery.of(context).size.width,
+          MediaQuery.of(context).size.height * Styling.imageHeightRelative);
 
-      var decodedImage = await decodeImageFromList(imageFile.readAsBytesSync());
-      Size visionInputSize =
-          Size(decodedImage.width.toDouble(), decodedImage.height.toDouble());
-
-      processImage(visionInput);
+      Processor imageProcessor = Processor(imageFile);
+      String newTags = await imageProcessor.getImageLabels();
+      String newTexts = await imageProcessor.getRecognisedTexts();
+      List<Widget> newObjects =
+          await imageProcessor.getDetectedObjects(imageFile, stackChildrenSize);
 
       if (mounted) {
         setState(() {
-          _currentImage = Image.file(imageFile);
-          _currentImageAbsSize = visionInputSize;
+          _currentTags = newTags;
+          _currentDetectedText = newTexts;
+          _detectedObjects = newObjects;
         });
       }
     }
@@ -98,107 +91,29 @@ class _MyHomePageState extends State<MyHomePage> {
             builder: (context) => CameraView(camera: widget.camera)));
     if (imagePath != null) {
       File imageFile = File(imagePath);
-      InputImage visionInput = InputImage.fromFile(imageFile);
+      Size stackChildrenSize = Size(MediaQuery.of(context).size.width,
+          MediaQuery.of(context).size.height * Styling.imageHeightRelative);
 
-      var decodedImage = await decodeImageFromList(imageFile.readAsBytesSync());
-      Size visionInputSize =
-          Size(decodedImage.width.toDouble(), decodedImage.height.toDouble());
-
-      processImage(visionInput);
+      Processor imageProcessor = Processor(imageFile);
+      String newTags = await imageProcessor.getImageLabels();
+      String newTexts = await imageProcessor.getRecognisedTexts();
+      List<Widget> newObjects =
+          await imageProcessor.getDetectedObjects(imageFile, stackChildrenSize);
 
       if (mounted) {
         setState(() {
-          _currentImage = Image.file(imageFile);
-          _currentImageAbsSize = visionInputSize;
+          _currentTags = newTags;
+          _currentDetectedText = newTexts;
+          _detectedObjects = newObjects;
         });
       }
     }
   }
 
-  Future<void> processImage(InputImage inputImage) async {
-    if (_isBusy) return;
-    _isBusy = true;
-    await Future.delayed(Constants.delayShort);
-
-    final List<ImageLabel>? labels =
-        await imageLabeler.processImage(inputImage);
-    final RecognisedText? texts = await textRecognizer.processImage(inputImage);
-    final List<DetectedObject>? objects =
-        await objectDetector.processImage(inputImage);
-
-    String output1 = Constants.tagTextError;
-    String output2 = Constants.detectedTextError;
-    List? output3;
-    if (labels != null) {
-      output1 = Constants.appSubtitleTag;
-      for (ImageLabel label in labels) {
-        double confidencePercentage = label.confidence * 100;
-        output1 = output1 +
-            'Label: ${label.label}, Confidence: ${confidencePercentage.toStringAsFixed(2)}%\n';
-      }
-    }
-    if (texts != null) {
-      output2 = Constants.appSubtitleDetectedText;
-      for (TextBlock block in texts.blocks) {
-        output2 = output2 + block.text + '\n';
-      }
-    }
-    if (objects != null) {
-      output3 = List.from(objects);
-    }
-
-    _isBusy = false;
-    if (mounted) {
-      setState(() {
-        _currentTags = output1;
-        _currentDetectedText = output2;
-        _detectedObjects = output3;
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
-    Size stackChildrenSize = Size(MediaQuery.of(context).size.width,
-        MediaQuery.of(context).size.height * Styling.imageHeightRelative);
     List<Widget> stackChildren = [];
-    stackChildren.add(_currentImage);
-    if (_detectedObjects != null &&
-        _currentImageAbsSize?.width != null &&
-        _currentImageAbsSize?.height != null) {
-      double factorX = stackChildrenSize.width / _currentImageAbsSize!.width;
-      double factorY = stackChildrenSize.height / _currentImageAbsSize!.height;
-
-      for (DetectedObject anObject in _detectedObjects!) {
-        Widget objectBoundary = Container(
-          child: Positioned(
-            top: anObject.getBoundinBox().top * factorY,
-            left: anObject.getBoundinBox().left * factorX,
-            width: anObject.getBoundinBox().width * factorX,
-            height: anObject.getBoundinBox().height * factorY,
-            child: Container(
-              decoration: BoxDecoration(
-                  border: Border.all(
-                color: Colors.green,
-                width: Styling.objectBoundaryWidth,
-              )),
-              child: Text(
-                (anObject.getLabels() != null &&
-                        anObject.getLabels().isNotEmpty)
-                    ? anObject.getLabels().first.getText()
-                    : Constants.objectLabelDefault,
-                style: const TextStyle(
-                  backgroundColor: Colors.green,
-                  color: Colors.white,
-                  fontSize: Styling.objectBoundaryFontSize,
-                ),
-              ),
-            ),
-          ),
-        );
-        stackChildren.add(objectBoundary);
-      }
-    }
+    stackChildren.addAll(_detectedObjects);
 
     return FutureBuilder<void>(
       future: loadingAnim(),
@@ -275,13 +190,12 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
             body: const Center(child: CircularProgressIndicator()),
           );
-          //const Center(child: CircularProgressIndicator());
         }
       },
     );
   }
 
   Future loadingAnim() {
-    return Future.delayed(const Duration(milliseconds: 1200));
+    return Future.delayed(Constants.delayMedium);
   }
 }
