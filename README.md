@@ -6,7 +6,7 @@ The application is developed with ***Flutter***.
 
 ## The built Android app
 
-APK File (141.7 MB) : https://drive.google.com/file/d/1yCBmAGNMoVjyeC0uPUCuOEgVNd9-RZmB/view?usp=sharing
+APK File (141.7 MB) : https://drive.google.com/file/d/1ao_H5iZQZk_kgyroC-MTvklHj08ue4CA/view?usp=sharing
 
 The APK file is too large to be uploaded in a commit to Github, hence it is made available via Google Drive.
 
